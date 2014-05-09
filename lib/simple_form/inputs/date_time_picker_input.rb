@@ -22,7 +22,19 @@ module SimpleForm
         value = Time.zone.parse(value) if value.is_a?(String)
         value = value.strftime("%Y-%m-%d %H:%M") if value.respond_to?(:strftime)
 
-        { class: 'form-control', readonly: true, value: value.presence || '' }
+        {
+          class: 'form-control',
+          data: {
+            provide: :datetimepicker,
+            "date-format" => "dd.mm.yyyy hh:00",
+            "date-language" => "ru",
+            "date-autoclose" => true,
+            "date-today-highlight" => true,
+            "min-view" => "day",
+            "date-startdate" => Date.today.to_s
+          },
+          value: value.presence || ''
+        }
       end
 
       def span_calendar
